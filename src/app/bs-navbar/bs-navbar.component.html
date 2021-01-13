@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-    <a class="navbar-brand" routerLink="/">O</a>
+    <a class="navbar-brand" routerLink="/">O-shop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,7 +14,7 @@
             <a class="nav-link" routerLink="/login">Login</a>
           </li>
         </ng-template>
-        <li *ngIf="user$ | async as user; else anonymousUser" 
+        <li *ngIf="auth.user$ | async as user; else anonymousUser" 
         ngbDropdown 
         class="nav-item dropdown">
           <a ngbDropdownToggle class="nav-link dropdown-toggle" 

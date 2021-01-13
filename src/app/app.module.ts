@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { RouterModule } from '@angular/router';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
@@ -53,7 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: 'admin/orders', component: AdminOrdersComponent}
     ])
   ],
-  providers: [],
+  providers: [ AuthService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
