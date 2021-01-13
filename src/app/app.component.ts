@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -8,12 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private auth: AuthService, router: Router){
+  constructor(private auth: AuthService, router: Router, private userService: UserService) {
     //Since this is the App component *root component of our application), 
     //there's no need to unsubscribe from this subscription
     auth.user$.subscribe(
       user => {
-        if(user){
+        if (user) {
+          //save/update user's info in firebase's database
+          userService.save(user);
+
+          //setting the return url and storing it in browser's local storage to redirect to it after login.
           let returnUrl = localStorage.getItem('returnUrl');
           router.navigateByUrl(returnUrl);
         }

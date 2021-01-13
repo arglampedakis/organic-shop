@@ -1,5 +1,6 @@
 import { AuthService } from './../auth.service';
 import { Component } from '@angular/core';
+import { AppUser } from '../models/app-user';
 @Component({
   selector: 'bs-navbar',
   templateUrl: './bs-navbar.component.html',
@@ -7,9 +8,14 @@ import { Component } from '@angular/core';
 })
 export class BsNavbarComponent {
 
-  constructor(public auth: AuthService) {  }
+  appUser: AppUser;
 
-  logout(){
+  constructor(private auth: AuthService) {
+    //no need to unsubscribe from this because there will be only one instance of the navbar in DOM
+    auth.appUser$.subscribe(appUser => this.appUser = appUser);
+  }
+
+  logout() {
     this.auth.logout();
   }
 }
