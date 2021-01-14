@@ -54,39 +54,44 @@ import { CustomFormsModule } from 'ngx-custom-validators';
     AngularFireAuthModule,
     NgbModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent},
-      { path: 'products', component: ProductsComponent},
-      { path: 'shopping-cart', component: ShoppingCartComponent},
-      { path: 'login', component: LoginComponent},
+      { path: '', component: HomeComponent },
+      { path: 'products', component: ProductsComponent },
+      { path: 'shopping-cart', component: ShoppingCartComponent },
+      { path: 'login', component: LoginComponent },
 
-      { path: 'check-out', component: CheckOutComponent, canActivate: [ AuthGuard ]},
-      { path: 'order-success', component: OrderSuccessComponent, canActivate: [ AuthGuard ]},
-      { path: 'my/orders', component: MyOrdersComponent, canActivate: [ AuthGuard ]},
-      
-      { 
-        path: 'admin/products', 
-        component: AdminProductsComponent, 
-        canActivate: [ AuthGuard, AdminAuthGuard ]
+      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
+      { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+      { path: 'my/orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+
+      {
+        path: 'admin/products/new',
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
       },
-      { 
-        path: 'admin/products/new', 
-        component: ProductFormComponent, 
-        canActivate: [ AuthGuard, AdminAuthGuard ]
+      {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
       },
-      { 
-        path: 'admin/orders', 
-        component: AdminOrdersComponent, 
-        canActivate: [ AuthGuard, AdminAuthGuard ]
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/orders',
+        component: AdminOrdersComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
       }
     ])
   ],
-  providers: [ 
-    AuthService, 
+  providers: [
+    AuthService,
     AuthGuard,
     UserService,
     AdminAuthGuard,
     CategoryService,
-    ProductService 
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
