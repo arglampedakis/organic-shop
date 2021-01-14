@@ -27,6 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
+import { CustomFormsModule } from 'ngx-custom-validators';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    CustomFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
