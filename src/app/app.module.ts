@@ -28,6 +28,7 @@ import { AuthGuardService as AuthGuard } from './auth-guard.service';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { FormsModule } from '@angular/forms';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { CustomFormsModule } from 'ngx-custom-validators';
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     NgbModule,
+    DataTablesModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent },
       { path: 'products', component: ProductsComponent },

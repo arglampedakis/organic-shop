@@ -2,10 +2,7 @@
     <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
 </p>
 
-<p>
-    <input #query (keyup)="filter(query.value)" type="text" class="form-control" placeholder="Search...">
-</p>
-<table class="table">
+<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
     <thead>
         <tr>
             <th>Title</th>

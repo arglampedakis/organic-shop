@@ -2,7 +2,7 @@ import { Product } from './../../models/product';
 import { map } from 'rxjs/operators';
 import { ProductService } from './../../product.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-products',
@@ -14,6 +14,8 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   products: Product[];
   filteredProducts: Product[];
   subscription: Subscription;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   constructor(private productService: ProductService) {
     this.subscription = this.productService.getAll().pipe(
@@ -21,6 +23,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
         action => {
           const $key = action.payload.key;
           const data = { $key, ...action.payload.val() as Product };
+          this.dtTrigger.next();
           return data;
         }
       ))
@@ -28,10 +31,16 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5,
+      retrieve: true
+    }
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    this.dtTrigger.unsubscribe();
   }
 
   filter(query: string) {

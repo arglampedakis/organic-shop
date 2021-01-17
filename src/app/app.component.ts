@@ -14,14 +14,17 @@ export class AppComponent {
     //there's no need to unsubscribe from this subscription
     auth.user$.subscribe(
       user => {
-        if (user) {
-          //save/update user's info in firebase's database
-          userService.save(user);
+        if (!user) return;
 
-          //setting the return url and storing it in browser's local storage to redirect to it after login.
-          let returnUrl = localStorage.getItem('returnUrl');
-          router.navigateByUrl(returnUrl);
-        }
+        // save/update user's info in firebase's database
+        userService.save(user);
+
+        //setting the return url and storing it in browser's local storage to redirect to it after login.
+        let returnUrl = localStorage.getItem('returnUrl');
+        if (!returnUrl) return;
+
+        localStorage.removeItem('returnUrl');
+        router.navigateByUrl(returnUrl);
       }
     );
   }
