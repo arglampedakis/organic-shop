@@ -1,1 +1,12 @@
-<p>products works!</p>
+<div class="row">
+    <div class="col-3">
+        <product-filter [category]="category"></product-filter>
+    </div>
+    <div class="col-9">
+        <div class="row row-cols-2">
+            <dic *ngFor="let p of filteredProducts" class="col my-2">
+                <product-card [product]="p"></product-card>
+            </dic>
+        </div>
+    </div>
+</div>
