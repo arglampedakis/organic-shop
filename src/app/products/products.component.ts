@@ -20,7 +20,7 @@ export class ProductsComponent {
 
     productService.getAll().pipe(
       switchMap(products => {
-        this.products = products.map(product => ({ key$: product.key, ...product.payload.val() as Product }))
+        this.products = products.map(product => ({ $key: product.key, ...product.payload.val() as Product }))
         return route.queryParamMap;
       })
     ).subscribe(params => {
