@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { OrderService } from './../../order.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Order } from 'src/app/models/order';
 
 @Component({
   selector: 'app-admin-orders',
   templateUrl: './admin-orders.component.html',
   styleUrls: ['./admin-orders.component.css']
 })
-export class AdminOrdersComponent implements OnInit {
+export class AdminOrdersComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  orders: Array<Order>;
+  subscription: Subscription;
 
-  ngOnInit(): void {
+  constructor(private orderService: OrderService) {
   }
 
+  ngOnInit(): void {
+    this.subscription = this.orderService.getOrders()
+      .subscribe((orders: Array<Order>) => this.orders = orders);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

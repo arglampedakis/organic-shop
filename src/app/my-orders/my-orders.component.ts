@@ -1,15 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { switchMap } from 'rxjs/operators';
+import { OrderService } from './../order.service';
+import { AuthService } from './../auth.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Order } from '../models/order';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
   styleUrls: ['./my-orders.component.css']
 })
-export class MyOrdersComponent implements OnInit {
+export class MyOrdersComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  orders: Array<Order>;
+  subscription: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.subscription = this.authService.user$
+      .pipe(
+        switchMap(user => this.orderService.getOrdersByUserId(user.uid))
+      )
+      .subscribe((orders: Array<Order>) => this.orders = orders);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
